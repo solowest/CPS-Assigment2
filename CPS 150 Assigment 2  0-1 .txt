@@ -1,0 +1,49 @@
+// Define input varables: varable (meaning, type)
+	//	firstName			( First name, char)
+	//	lastName			( Last name, char)
+	//	voiceMin			( Voice Minutes Used, int)
+	//	textMessages		( Text Messeages Used, int)
+	//	dataUsed			( Data Used in Kilobytes, int)
+
+Public class HWAssigment2 {
+	public static void main(String[] args){
+	// Assignment title
+	// Welcome
+	System.out.println("CPS 150 Assignment 2 by Solomon West");
+	System.out.println();
+	System.out.println("Welcome to the ABC Wireless bill calculator!");
+	System.out.println();
+	// Costomer inputs (First name, Last name, Voice minutes used, Text Messeages used, Data used (kilobytes)
+	firstName = getDouble("Costomers first name:  ");
+	lastName = getSting("Customers last name:  ");
+	voiceMin = getInt("Voice minutes used:  ");
+	textMessages = getInt("Text messages used:  ");
+	dataUsed = getInt("Data used (kilobytes):  ");
+	System.out.println("-----------------------------------");
+	System.out.println();
+	// ABC Wireless
+	// ============
+	System.out.println("ABC Wireless");
+	System.out.println("============");
+	System.out.println();
+	// Costomers full name ( firstName + lastName );
+	String fullName = firstName + lastName;
+	System.out.printf("Costomer:%2.2f\n", fullName);
+	// Usages and charges
+	// ------------------
+	System.out.println("Usages and Charges");
+	System.out.println("------------------");
+	// Item - Allowed - Used - Charge
+	// "Base Charge" - - baseCharge
+	// "Voice minutes" - voiceMinAllowed - voiceMin - voicePrice
+	// "Text messages" - textMessagesAllowed - textMessages - textPrice
+	// "Data (kbytes)" - dataAllowed -dataUsed - dataPrice
+	// ---------
+	// "Subtotal" - subtotalPrice
+	// "Tax" - tax
+	// =========
+	// "Total Due: $" - finalTotal
+	// Assignment 2 complete
+
+	}
+}
