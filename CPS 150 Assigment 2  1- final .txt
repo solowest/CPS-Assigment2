@@ -1,0 +1,134 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package assignment2;
+
+import static java.lang.System.out;
+import java.util.Scanner;
+
+/**
+ *
+ * @author User1
+ */
+public class Assignment2 {
+    
+    /**
+     * @param args the command line arguments
+     */
+     final static Scanner cin = new Scanner(System.in);
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        // Assignment title
+	// Welcome
+	out.println("CPS 150 Assignment 2 by Solomon West");
+	out.println();
+	out.println("Welcome to the ABC Wireless bill calculator!");
+	out.println();
+	// Costomer inputs (First name, Last name, Voice minutes used, Text Messeages used, Data used (kilobytes)
+        int voiceMin, textMessages, dataUsed;
+        String firstName, lastName;
+        firstName = getString("Costomers first name:  ");
+	lastName = getString("Customers last name:  ");
+	voiceMin = getInt("Voice minutes used:  ");
+	textMessages = getInt("Text messages used:  ");
+	dataUsed = getInt("Data used (kilobytes):  ");
+	out.println("-----------------------------------");
+	out.println();
+	// ABC Wireless
+	// ============
+	out.println("ABC Wireless");
+	out.println("============");
+	out.println();
+	// Costomers full name ( firstName + lastName );
+	String fullName = firstName + lastName;
+	out.printf("Costomer:%s\n", fullName);
+	// Usages and charges
+	// ------------------
+	System.out.println("Usages and Charges");
+	System.out.println("------------------");
+	double voicePrice = voiceCharge( voiceMin, voiceMinAllowed);
+	double textPrice = textCharge(textMessages, textMessagesAllowed);
+	// Item - Allowed - Used - Charge
+	// "Base Charge" - - baseCharge
+	// "Voice minutes" - voiceMinAllowed - voiceMin - voicePrice
+	// "Text messages" - textMessagesAllowed - textMessages - textPrice
+	// "Data (kbytes)" - dataAllowed -dataUsed - dataPrice
+	// ---------
+	// "Subtotal" - subtotalPrice
+	// "Tax" - tax
+	// =========
+	// "Total Due: $" - finalTotal
+	// Assignment 2 complete
+
+	
+    }
+    
+    //voice charges method
+    public static double voiceCharge(int voiceMin, int voiceMinAllowed){
+		// if voice minutes are over voice minutes allowed then the charge is 5 cent a minute
+		// define the diffrence
+		int voiceMinDiff = voiceMin - voiceMinAllowed;
+		if(voiceMin > voiceMinAllowed)
+		{
+			double voicePrice = voiceMinDiff * 0.05;
+            return voicePrice;
+		}
+		else
+		{
+			double voicePrice = 0.00;
+            return voicePrice;
+		}
+	}
+    
+    //text charges method
+    public static double textCharge(int textMessages, int textMessagesAllowed){
+		// if voice minutes are over voice minutes allowed then the charge is 5 cent a minute
+		// define the diffrence
+		int textDiff = textMessages - textMessagesAllowed;
+		if(textMessages > textMessagesAllowed)
+		{
+			double textPrice = textDiff * 0.02;
+            return textPrice;
+		}
+		else
+		{
+			double textPrice = 0.00;
+            return textPrice;
+		}
+	}
+	
+    static int getInt(String prompt) {
+        out.print(prompt);
+        return cin.nextInt();
+    }
+
+    //data charges method
+    public static double dataCharge(int dataUsed, int dataAllowed){
+		// if voice minutes are over voice minutes allowed then the charge is 5 cent a minute
+		// define the diffrence
+		int textDiff = dataUsed - dataAllowed;
+		if(dataUsed > dataAllowed)
+		{
+			double textPrice = textDiff * 0.02;
+            return textPrice;
+		}
+		else
+		{
+			double textPrice = 0.00;
+            return textPrice;
+		}
+	}	
+	
+	static double getDouble(String prompt) {
+        out.print(prompt);
+        return cin.nextDouble();
+    }
+
+	static String getString(String prompt) {
+        out.print(prompt);
+        return cin.next();
+    }
+}
