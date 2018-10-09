@@ -1,0 +1,94 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package assignment2;
+
+import static java.lang.System.out;
+import java.util.Scanner;
+
+/**
+ *
+ * @author User1
+ */
+public class Assignment2 {
+    
+    /**
+     * @param args the command line arguments
+     */
+     final static Scanner cin = new Scanner(System.in);
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        // Assignment title
+	// Welcome
+	out.println("CPS 150 Assignment 2 by Solomon West");
+	out.println();
+	out.println("Welcome to the ABC Wireless bill calculator!");
+	out.println();
+	// Costomer inputs (First name, Last name, Voice minutes used, Text Messeages used, Data used (kilobytes)
+        int voiceMin, textMessages, dataUsed;
+        String firstName;
+        firstName = getString("Costomers first name:  ");
+	String lastName = getString("Customers last name:  ");
+	voiceMin = getInt("Voice minutes used:  ");
+	textMessages = getInt("Text messages used:  ");
+	dataUsed = getInt("Data used (kilobytes):  ");
+	out.println("-----------------------------------");
+	out.println();
+	// ABC Wireless
+	// ============
+	System.out.println("ABC Wireless");
+	System.out.println("============");
+	System.out.println();
+	// Costomers full name ( firstName + lastName );
+	String fullName = firstName + lastName;
+	System.out.printf("Costomer:%s\n", fullName);
+	// Usages and charges
+	// ------------------
+	System.out.println("Usages and Charges");
+	System.out.println("------------------");
+	// Item - Allowed - Used - Charge
+	// "Base Charge" - - baseCharge
+	// "Voice minutes" - voiceMinAllowed - voiceMin - voicePrice
+	// "Text messages" - textMessagesAllowed - textMessages - textPrice
+	// "Data (kbytes)" - dataAllowed -dataUsed - dataPrice
+	// ---------
+	// "Subtotal" - subtotalPrice
+	// "Tax" - tax
+	// =========
+	// "Total Due: $" - finalTotal
+	// Assignment 2 complete
+
+	
+    }
+    
+		//voice charges method
+	public static double voiceCharge(voiceMin, voiceMinAllowed){
+		// if voice minutes are over voice minutes allowed then the charge is 5 cent a minute
+		// define the diffrence
+		int voiceMinDiff = voiceMin - voiceMinAllowed
+		if(voiceMin > voiceMinAllowed)
+		{
+			double voicePrice = voiceMinDiff * 0.05
+		}
+		else
+		{
+			double voicePrice = 0.00
+		}
+	}
+	
+        static int getInt(String prompt) {
+        out.print(prompt);
+        return cin.nextInt();
+    }
+        static double getDouble(String prompt) {
+        out.print(prompt);
+        return cin.nextDouble();
+    }
+        static String getString(String prompt) {
+        out.print(prompt);
+        return cin.next();
+    }
+}
