@@ -23,11 +23,11 @@
 	// get inputs 				( / firstName, lastName, voiceMin, textMessages, dataUsed) - Not needed in Main
 	// voice charges 			( voiceMin, voiceMinAllowed / voicePrice ) - Done
 	// text charges				( textMessages, textMessagesAllowed / textPrice) - Done
-	// data charges				( dataUsed, dataAllowed / dataPrice)
+	// data charges				( dataUsed, dataAllowed / dataPrice) - Done
 	// subtotal Calculator			( baseCharge, voicePrice, textPrice, dataPrice / subtotal)
 	// sales tax				( subtotal, tax / finalTotal)
 	// bill 				( main)
-	// rounding				( dataUsed / dataUsedRounded)
+	// rounding				( dataUsed / dataUsedRounded) - Done
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,8 +36,11 @@
  */
 package assignment2;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import static java.lang.System.out;
 import java.util.Scanner;
+import static javax.swing.UIManager.getInt; //added
+import static javax.swing.UIManager.getString; // added
 
 /**
  *
@@ -49,10 +52,10 @@ public class Assignment2 {
      * @param args the command line arguments
      */
      final static Scanner cin = new Scanner(System.in);
-   
-   public static void main(String[] args) {
-        // TODO code application logic here
-        //Given Variable
+    
+    public static void main(String[] args) {
+    // TODO code application logic here
+    //Given Variable
 	//	baseCharge			( Base Charge, float)
 	//	voiceMinAllowed			( Voice Minutes Allowed, int)
 	//	textMessagesAllowed		( Text Messeages Allowed, int)
@@ -91,22 +94,37 @@ public class Assignment2 {
 	// ------------------
 	System.out.println("Usages and Charges");
 	System.out.println("------------------");
-	double voicePrice = voiceCharge( voiceMin, voiceMinAllowed);
-	double textPrice = textCharge(textMessages, textMessagesAllowed);
+        double voicePrice = voiceCharge(voiceMin, VOICEMINALLOWED);
+        double textPrice = textCharge(textMessages, TEXTMESSAGESALLOWED);
+        double dataPrice = dataCharge(dataUsed, DATAALLOWED);
 	// Item - Allowed - Used - Charge
+        System.out.printf("Item\t\tAllowed\t\tUsed\t\tCharge\n");
 	// "Base Charge" - - baseCharge
+        System.out.printf("Base Charge\t\t\t\t\t%1.2f\n", BASECHARGE);
 	// "Voice minutes" - voiceMinAllowed - voiceMin - voicePrice
-	// "Text messages" - textMessagesAllowed - textMessages - textPrice
-	// "Data (kbytes)" - dataAllowed -dataUsed - dataPrice
+        System.out.printf("Voice minutes\t%d\t\t%d\t\t%1.2f\n", VOICEMINALLOWED, voiceMin, voicePrice);
+        // "Text messages" - TEXTMESSAGESALLOWED - textMessages - textPrice
+        System.out.printf("Text messages\t%d\t\t%d\t\t%1.2f\n", TEXTMESSAGESALLOWED, textMessages, textPrice);
+	// "Data (kbytes)" - DATAALLOWED - dataUsed - dataPrice
+        System.out.printf("Data (kbytes)\t%d\t\t%d\t\t%1.2f\n", DATAALLOWED, dataUsed, dataPrice);
 	// ---------
-	// "Subtotal" - subtotalPrice
-	// "Tax" - tax
+        System.out.printf("\t\t\t\t%6s===============\n", " ");
+	double subtotal = dataPrice + textPrice + voicePrice + BASECHARGE;
+        // "Subtotal" - subtotalPrice
+        System.out.printf("\t\t\t\tSubtotal%12.2f\n", subtotal);
+	double salesTax = salesTaxCalculator(subtotal, TAX );
+        // "Tax" - tax
+        System.out.printf("\t\t\t\tTax%17.2f\n", salesTax);
 	// =========
-	// "Total Due: $" - finalTotal
-	// Assignment 2 complete
+        System.out.printf("\t\t\t\t%6s===============\n", " ");
+	double totalDue = totalDue( subtotal, salesTax);
+        // "Total Due: $" - finalTotal
+        System.out.printf("\t\t\t\tTotal Due: $%8.2f\n", totalDue);
+	System.out.println();
+        System.out.println("Assignment 2 complete");
 
 	
-	}
+    }
     
     //voice charges method
     public static double voiceCharge(int voiceMin, int voiceMinAllowed){
@@ -146,6 +164,9 @@ public class Assignment2 {
 		}
 	}
 	
+//    } had to be commented out
+    
+		
     //data charges method
     public static double dataCharge(int dataUsed, int dataAllowed){
 		int dataDiff = dataUsed - dataAllowed;
@@ -158,13 +179,14 @@ public class Assignment2 {
 			// else there no charge
 		if(dataUsed > dataAllowed)
 		{
-			double dataPrice
-			int dataUsed = roundingData(dataUsed);
-			dataDiff = dataUsed - dataAllowed;
-			dataDiff = dataDiff / 100;
-			dataPrice = dataDiff * .10;
-			return dataPrice
-            return textPrice;
+                double dataPrice;
+                int roundedDataUsed;//added rounded data used
+                roundedDataUsed = roundingData(dataUsed); //added
+                dataDiff = roundedDataUsed - dataAllowed; //added
+		dataPrice = dataDiff * .10;
+                dataPrice = dataPrice /1000;
+		return dataPrice;
+            //return textPrice;
 		}
 		else
 		{
@@ -174,7 +196,7 @@ public class Assignment2 {
 	}	
 
 	//rounding method
-	static int roundingData(int dataUsed){
+    static int roundingData(int dataUsed){
 	// convert int to string
 	// find the number of char in string
 	// find the value of the last two char
@@ -182,26 +204,46 @@ public class Assignment2 {
 	// convert string to int
 	String dataUsedString = Integer.toString(dataUsed);
 	int lastNumber = dataUsedString.length();
+        lastNumber = lastNumber - 1;
 	int secondToLastNumber = lastNumber - 1;
-	dataUsedString.charAt(lastNumber) = '0';
-	dataUsedString.charAt(secondToLastNumber) = '0';
-	Int dataUsedRounded = Integer.valueOf(dataUsedString);
-	return dataUsedRounded
-	}
+        int z = 0;
+        char numZero =(char)z;
+        String newDataUsedString;
+        newDataUsedString = changeCharInPosition(lastNumber, numZero, dataUsedString);
+        newDataUsedString = changeCharInPosition(secondToLastNumber, numZero, dataUsedString);
+        int dataUsedRounded = Integer.valueOf(dataUsedString);
+	return dataUsedRounded;
+    }
 	
-	static int getInt(String prompt) {
+    //char changing method
+    static String changeCharInPosition(int position, char ch, String str){
+    char[] charArray = str.toCharArray();
+    charArray[position] = ch;
+    return new String(charArray);
+    }
+    
+    //sales tax Calculator method
+    static double salesTaxCalculator(double subtotal,double TAX ){
+        double salesTax = subtotal * TAX / 100;
+        return salesTax;
+    }
+    
+    //total due Calculator
+    static double totalDue( double subtotal, double salesTax){
+        double totalDue = subtotal + salesTax;
+        return totalDue;
+    }
+    
+    static int getInt(String prompt) {
         out.print(prompt);
         return cin.nextInt();
-	}
-
-	
-	static double getDouble(String prompt) {
+    }
+    static double getDouble(String prompt) {
         out.print(prompt);
         return cin.nextDouble();
-  	}
-    
-	static String getString(String prompt) {
+    }
+    static String getString(String prompt) {
         out.print(prompt);
         return cin.next();
-    	}
+    }
 }
